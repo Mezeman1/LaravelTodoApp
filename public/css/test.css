@@ -1,0 +1,8 @@
+html, body {
+  background: #212529;
+  color: #fff;
+}
+h1 {
+  display: block;
+  margin: 10px auto;
+}
