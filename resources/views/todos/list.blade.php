@@ -3,6 +3,7 @@
   <thead>
     <tr>
       <th scope="col">ID</th>
+      <th scope="col">Title</th>      
       <th scope="col">Body</th>
       <th scope="col">Completed</th>
       <th scope="col">Edit</th>
@@ -13,6 +14,7 @@
       @foreach ($todos as $todo)
       <tr>
         <th scope="row">{{$todo->id}}</th>
+        <td>{{$todo->title}}</td>
         <td>{{$todo->body}}</td>
         @if ($todo->completed)
           <td>Finished</td>
