@@ -4,7 +4,11 @@
     {{ csrf_field() }}
     <input type="hidden" name="_method" value="PATCH">
     <div class="form-group">
-      <label for="body">Todo</label>
+      <label for="body">Todo title</label>
+    <input type="text" class="form-control" id="title" name="title" value="{{$todo->title}}">
+    </div>
+    <div class="form-group">
+      <label for="body">Todo body</label>
     <input type="text" class="form-control" id="body" name="body" value="{{$todo->body}}">
     </div>
     <div class="form-group form-check">

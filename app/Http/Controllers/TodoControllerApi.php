@@ -6,7 +6,7 @@ use App\Todo;
 use Illuminate\Http\Request;
 use Session;
 
-class TodoController extends Controller
+class TodoControllerApi extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,7 @@ class TodoController extends Controller
      */
     public function index()
     {   
-        $todos = Todo::latest()->paginate(6);
-        return view('todos.index', compact('todos'));
+        return Todo::all();
     }
 
     /**
@@ -37,7 +36,6 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        
         $this->validate($request, [
             'title' => 'required|min:3|max:255',
             'body' => 'required|min:5|max:255'
@@ -46,21 +44,11 @@ class TodoController extends Controller
         $todo = new Todo;
         $todo->title = $request->title;
         $todo->body = $request->body;
-        
-        if($request->completed == 'on'){
-            $todo->completed = 1;
-        }
+        $todo->completed = $request->completed;
 
         $todo->save();
 
-        $value = "New todo has been added to the list.";
-        $this->showSuccesMessage($value);
-
-        return redirect()->route('Todo.index');
-    }
-
-    public function showSuccesMessage($value) {
-        Session::flash('succes', $value);
+        return $todo;
     }
 
     /**
@@ -69,9 +57,9 @@ class TodoController extends Controller
      * @param  \App\Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function show(Todo $todo)
+    public function show($id)
     {
-        //
+        return Todo::findOrFail($id);
     }
 
     /**
@@ -82,8 +70,7 @@ class TodoController extends Controller
      */
     public function edit($id)
     {
-        $todo = Todo::findOrFail($id);
-        return view('todos.edit', compact('todo'));
+        return 'To update a todo app, use /api/Todo/{$id}, as a PATCH method.';
     }
 
     /**
@@ -102,18 +89,13 @@ class TodoController extends Controller
 
         $todo = Todo::findOrFail($id);
 
-        $todo->title = $request->title;
-        $todo->body = $request->body;        
-
-        if($request->completed == 'on'){
-            $todo->completed = 1;
-        } else {
-            $todo->completed = 0;
-        }
+        $todo->title = $request->title;        
+        $todo->body = $request->body;
+        $todo->completed = $request->completed;
 
         $todo->save();
 
-        return redirect()->route('Todo.index');
+        return $todo;
 
     }
 
@@ -125,13 +107,13 @@ class TodoController extends Controller
      */
     public function destroy($id)
     {
-        $todo = Todo::findOrFail($id);
+        $todo = Todo::find($id);
+        if($todo != null){
+            $todo->delete();
+            return "Deleted succesfully!";
+        }
+        
 
-        $todo->delete();
-
-        $value = "Succesfully deleted the todo item.";
-        $this->showSuccesMessage($value);
-
-        return redirect()->route('Todo.index');
+        return "Couldn't find the todo item with id: {$id}.";
     }
 }
