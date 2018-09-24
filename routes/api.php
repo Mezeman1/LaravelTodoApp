@@ -13,12 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
-<<<<<<< HEAD
-Route::resource('todo', 'TodoAPIController');
-=======
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 Route::resource('Todo', 'TodoControllerApi');
->>>>>>> d94b8f63aa7283c4ca7f54a7b7685c12d0252205
