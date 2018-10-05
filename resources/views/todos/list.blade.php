@@ -22,10 +22,10 @@
           <td>Not Finished</td>
         @endif
         <td>
-        <a href="{{ route('Todo.edit', ['todo'=>$todo->id])}}" class="btn btn-primary">Edit</a>
+        <a href="{{ route('todo.edit', ['todo'=>$todo->id])}}" class="btn btn-primary">Edit</a>
         </td>
         <td>
-        <form action="{{route('Todo.destroy', ['todo'=>$todo->id])}}" method="POST">
+        <form action="{{route('todo.destroy', ['todo'=>$todo->id])}}" method="POST">
           {{ csrf_field() }}
           <input type="hidden" name="_method" value="DELETE">
               <input type="submit" class="btn btn-danger" value="Delete">

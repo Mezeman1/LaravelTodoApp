@@ -1,4 +1,4 @@
-<form action="{{ route('Todo.store')}}" method="POST">
+<form action="{{ route('todo.store')}}" method="POST">
     {{ csrf_field() }}
     <div class="form-group">
       <label for="title">Title</label>

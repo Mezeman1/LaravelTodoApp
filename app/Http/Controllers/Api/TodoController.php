@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Todo;
 use Illuminate\Http\Request;
-use Session;
+use App\Http\Controllers\Controller;
 
-class TodoControllerApi extends Controller
+class TodoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,16 +16,6 @@ class TodoControllerApi extends Controller
     public function index()
     {   
         return Todo::all();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -112,7 +102,6 @@ class TodoControllerApi extends Controller
             $todo->delete();
             return "Deleted succesfully!";
         }
-        
 
         return "Couldn't find the todo item with id: {$id}.";
     }

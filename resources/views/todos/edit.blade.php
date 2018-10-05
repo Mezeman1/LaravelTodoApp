@@ -1,6 +1,10 @@
 @extends('layout')
 @section('content')
-<form action="{{ route('Todo.update', ['todo'=>$todo->id])}}" method="POST">
+<form action="{{ 
+  route(
+    'todo.update', 
+    ['todo'=>$todo->id]
+  )}}" method="POST">
     {{ csrf_field() }}
     <input type="hidden" name="_method" value="PATCH">
     <div class="form-group">

@@ -20,16 +20,6 @@ class TodoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -56,22 +46,7 @@ class TodoController extends Controller
         $value = "New todo has been added to the list.";
         $this->showSuccesMessage($value);
 
-        return redirect()->route('Todo.index');
-    }
-
-    public function showSuccesMessage($value) {
-        Session::flash('succes', $value);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Todo  $todo
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Todo $todo)
-    {
-        //
+        return $this->redirectIndex();
     }
 
     /**
@@ -113,25 +88,33 @@ class TodoController extends Controller
 
         $todo->save();
 
-        return redirect()->route('Todo.index');
+        return $this->redirectIndex();
 
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the todo from database.
      *
-     * @param  \App\Todo  $todo
-     * @return \Illuminate\Http\Response
+     * @param  \App\Todo  $todo item to delete.
+     * @return \Illuminate\Http\Response redirect after deletion.
      */
     public function destroy($id)
     {
         $todo = Todo::findOrFail($id);
-
         $todo->delete();
 
-        $value = "Succesfully deleted the todo item.";
-        $this->showSuccesMessage($value);
+        $deleteMessage = "Succesfully deleted the todo item.";
+        $this->showSuccesMessage($deleteMessage);
 
-        return redirect()->route('Todo.index');
+        return $this->redirectIndex();
+    }
+
+
+    private function showSuccesMessage($value) {
+        Session::flash('succes', $value);
+    }
+
+    private function redirectIndex() {
+        return redirect()->route('todo.index');
     }
 }
