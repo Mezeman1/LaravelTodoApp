@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\v1;
 
 use App\Todo;
 use Illuminate\Http\Request;
@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 class TodoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of all the todos.
      *
      * @return \Illuminate\Http\Response
      */
@@ -19,7 +19,7 @@ class TodoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created todo to the database.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -42,9 +42,9 @@ class TodoController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified todo.
      *
-     * @param  \App\Todo  $todo
+     * @param  $id item to show.
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -53,21 +53,10 @@ class TodoController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Todo  $todo
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        return 'To update a todo app, use /api/Todo/{$id}, as a PATCH method.';
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Todo  $todo
+     * @param  $id item to edit.
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -90,9 +79,9 @@ class TodoController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the todo from the database.
      *
-     * @param  \App\Todo  $todo
+     * @param  $id item to delete.
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

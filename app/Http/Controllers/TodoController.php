@@ -9,9 +9,9 @@ use Session;
 class TodoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a list of the todo items.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response redirect to index.
      */
     public function index()
     {   
@@ -20,10 +20,10 @@ class TodoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created todo item inside the database.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request  $request data send by user.
+     * @return \Illuminate\Http\Response redirect to index.
      */
     public function store(Request $request)
     {
@@ -50,10 +50,10 @@ class TodoController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the todo item selected.
      *
-     * @param  \App\Todo  $todo
-     * @return \Illuminate\Http\Response
+     * @param  $id item to edit.
+     * @return \Illuminate\Http\Response redirect to view.
      */
     public function edit($id)
     {
@@ -62,11 +62,11 @@ class TodoController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the todo item in the database.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Todo  $todo
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request  $request data send by user.
+     * @param  $id item to update.
+     * @return \Illuminate\Http\Response redirect to index.
      */
     public function update(Request $request, $id)
     {
@@ -95,7 +95,7 @@ class TodoController extends Controller
     /**
      * Remove the todo from database.
      *
-     * @param  \App\Todo  $todo item to delete.
+     * @param  $id item to delete.
      * @return \Illuminate\Http\Response redirect after deletion.
      */
     public function destroy($id)
@@ -109,11 +109,20 @@ class TodoController extends Controller
         return $this->redirectIndex();
     }
 
-
+    /**
+     * Flashes the message specified.
+     * 
+     * @param $value the message to flash.
+     */
     private function showSuccesMessage($value) {
         Session::flash('succes', $value);
     }
 
+    /**
+     * Returns a redirect to the index page.
+     * Created this method so that if I do decide to change the name,
+     * I can refactor this in a single method.
+     */
     private function redirectIndex() {
         return redirect()->route('todo.index');
     }
